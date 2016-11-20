@@ -1,0 +1,67 @@
+.map {
+	border-spacing: 0px;
+	border-collapse: collapse;
+	margin: auto;
+}
+td {
+	width: 70px;
+	height: 70px;
+	
+	border: 1px solid #000;
+	border-style: dashed;
+	vertical-align: top;
+	
+    position: relative;
+}
+
+.top-, .bottom-, .left-, .right- {}
+
+.street { background-color: #EEE; }
+.spawhero { background-color: #CCF; }
+.spawzombies { background-color: #FCC; }
+
+.top-blocked { border-top: 3px solid #000; }
+.bottom-blocked { border-bottom: 3px solid #000; }
+.left-blocked { border-left: 3px solid #000; }
+.right-blocked { border-right: 3px solid #000; }
+
+.top-exit { border-top: 5px solid #FF0; }
+.bottom-exit { border-bottom: 5px solid #FF0; }
+.left-exit { border-left: 5px solid #FF0; }
+.right-exit { border-right: 5px solid #FF0; }
+
+.top-spawhero { border-top: 5px solid #00F; }
+.bottom-spawhero { border-bottom: 5px solid #00F; }
+.left-spawhero { border-left: 5px solid #00F; }
+.right-spawhero { border-right: 5px solid #00F; }
+
+.top-doorclosed { border-top: 1px solid #F00; }
+.bottom-doorclosed { border-bottom: 1px solid #F00; }
+.left-doorclosed { border-left: 1px solid #F00; }
+.right-doorclosed { border-right: 1px solid #F00; }
+
+.top-dooropen { border-top: 1px solid #0F0; }
+.bottom-dooropen { border-bottom: 1px solid #0F0; }
+.left-dooropen { border-left: 1px solid #0F0; }
+.right-dooropen { border-right: 1px solid #0F0; }
+
+
+
+.showLoadingDiv {
+   width: 100%;
+   height: 100%;
+   position: absolute;
+   display: block;
+   opacity: 0.5;
+   background-color: #000;
+   z-index: 99;
+   overflow: hidden;
+   text-align: center;
+}
+
+.showLoadingProgress {
+  position: absolute;
+  margin: auto;
+  /*margin-left: -32px;  -1 * image width / 2 */
+  /*margin-top: -32px;  -1 * image height / 2 */
+}

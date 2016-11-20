@@ -1,0 +1,183 @@
+{
+	"zona": {
+		"1_1": {
+			"id": "1_1",
+			"type": "indoor",
+			"pos": {
+				"top": "blocked",
+				"right": "doorclosed",
+				"bottom": "blocked",
+				"left": "blocked"
+			},
+			"items": {
+			}
+		},
+		"1_2": {
+			"id": "1_2",
+			"type": "indoor",
+			"pos": {
+				"top": "blocked",
+				"right": "doorclosed",
+				"bottom": "2_1-top",
+				"left": "1_1-right"
+			},
+			"items": {}
+		},
+		"1_3": {
+			"id": "1_3",
+			"type": "street",
+			"pos": {
+				"top": "exit",
+				"right": "doorclosed",
+				"bottom": "2_3-top",
+				"left": "1_2-right"
+			},
+			"items": {}
+		},
+		"1_4": {
+			"id": "1_4",
+			"type": "indoor",
+			"pos": {
+				"top": "blocked",
+				"right": "blocked",
+				"bottom": "2_4-top",
+				"left": "1_3-right"
+			},
+			"items": {}
+		},
+		"2_1": {
+			"id": "2_1",
+			"type": "spawhero",
+			"pos": {
+				"top": "1_1-bottom",
+				"right": "open",
+				"bottom": "3_1-top",
+				"left": "blocked"
+			},
+			"items": {}
+		},
+		"2_2": {
+			"id": "2_2",
+			"type": "street",
+			"pos": {
+				"top": "blocked",
+				"right": "open",
+				"bottom": "3_2-top",
+				"left": "open"
+			},
+			"items": {}
+		},
+		"2_3": {
+			"id": "2_3",
+			"type": "street",
+			"pos": {
+				"top": "open",
+				"right": "blocked",
+				"bottom": "3_3-top",
+				"left": "open"
+			},
+			"items": {}
+		},
+		"2_4": {
+			"id": "2_4",
+			"type": "street",
+			"pos": {
+				"top": "open",
+				"right": "blocked",
+				"bottom": "blocked",
+				"left": "blocked"
+			},
+			"items": {}
+		},
+		"3_1": {
+			"id": "3_1",
+			"type": "indoor",
+			"pos": {
+				"top": "blocked",
+				"right": "open",
+				"bottom": "4_1-top",
+				"left": "blocked"
+			},
+			"items": {}
+		},
+		"3_2": {
+			"id": "3_2",
+			"type": "indoor",
+			"pos": {
+				"top": "doorclosed",
+				"right": "blocked",
+				"bottom": "blocked",
+				"left": "open"
+			},
+			"items": {}
+		},
+		"3_3": {
+			"id": "3_3",
+			"type": "street",
+			"pos": {
+				"top": "open",
+				"right": "doorclosed",
+				"bottom": "open",
+				"left": "blocked"
+			},
+			"items": {}
+		},
+		"3_4": {
+			"id": "3_4",
+			"type": "indoor",
+			"pos": {
+				"top": "blocked",
+				"right": "blocked",
+				"bottom": "blocked",
+				"left": "3_3-right"
+			},
+			"items": {}
+		},
+		"4_1": {
+			"id": "4_1",
+			"type": "indoor",
+			"pos": {
+				"top": "doorclosed",
+				"right": "doorclosed",
+				"bottom": "blocked",
+				"left": "blocked"
+			},
+			"items": {}
+		},
+		"4_2": {
+			"id": "4_2",
+			"type": "indoor",
+			"pos": {
+				"top": "blocked",
+				"right": "blocked",
+				"bottom": "blocked",
+				"left": "4_1-right"
+			},
+			"items": {
+				"objects":["item"]
+			}
+		},
+		"4_3": {
+			"id": "4_3",
+			"type": "spawzombies",
+			"pos": {
+				"top": "3_3-bottom",
+				"right": "open",
+				"bottom": "blocked",
+				"left": "4_2-right"
+			},
+			"items": {}
+		},
+		"4_4": {
+			"id": "4_4",
+			"type": "spawzombies",
+			"pos": {
+				"top": "3_4-bottom",
+				"right": "blocked",
+				"bottom": "blocked",
+				"left": "4_3-right"
+			},
+			"items": {}
+		}
+	}
+}
