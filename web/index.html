@@ -1,177 +1,43 @@
 <!doctype html>
-<!-- estamos dizendo ‘quero usar angularjs’ -->
-<html ng-app="app">
+<html>
 	<head>
-		<title>ZC</title>
+		<title>.: BoardGO :. </title>
 
-		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-
-		<!-- Angular Material Library -->
-		<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
-		<script src="http://azimi.me/json-formatter/dist/json-formatter.min.js"></script>
-
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-		<link rel="stylesheet" href="http://azimi.me/json-formatter/dist/json-formatter.min.css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		<link rel="stylesheet" href="app.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
 
-		<script src="app.js"></script>
+		<!-- build:css assets/css/vendor.css -->
+		<link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+		<link href="bower_components/json-formatter/dist/json-formatter.css" rel="stylesheet" type="text/css"/>
+		<!-- endbuild -->
+
+        <!-- build:css assets/css/local.css -->
+		<link href="assets/app.css" rel="stylesheet" />
+		<!-- endbuild -->
 	</head>
-	<body ng-controller="HomeController">
-		<div layout="column">
-			<div layout="row" flex >
-				<div flex="80" style="border:1px solid #000;">
-					<table class="map">
-						<tr ng-repeat="col in mapa.table">
-							<td ng-repeat="zona in col"
-								class="{{mapa.zona[zona].type}} top-{{mapa.zona[zona].pos.top}} left-{{mapa.zona[zona].pos.left}} right-{{mapa.zona[zona].pos.right}} bottom-{{mapa.zona[zona].pos.bottom}} "
-								>
-								<div style="position: absolute;width: 100%;height: 100%;" layout="row" layout-wrap>
-									<div ng-show="mapa.zona[zona].showDice" class="showLoadingDiv">
-										<md-progress-circular class="showLoadingProgress" md-mode='indeterminate' md-diameter="60"></md-progress-circular>
-									</div>
-									{{mapa.zona[zona].id}}
-									<div ng-repeat="hero in mapa.zona[zona].items.heroes">
-										<span style="color: {{heroes[hero].color}}">
-											<md-tooltip>{{heroes[hero].name}}</md-tooltip>
-											H
-										</span>
-									</div>
-									<div ng-repeat="zombie in mapa.zona[zona].items.zombies">
-										<span style="color: blue">
-											Z
-										</span>
-									</div>
-									<div ng-repeat="zombie in mapa.zona[zona].items.objects">
-										<span style="color: white;background-color: red">
-											X
-										</span>
-									</div>
-								</div>
-							</td>
-						</tr>
-					</table>
-				</div>
+	<body ng-app="app" class="gray" style="width: 100%; height: 100%;">
+		<tmpl-home></tmpl-home>
 
-				<div flex layout="column" ng-show="!atual">
-					<form name="frmCreateHero">
-						<md-card>
-							<md-card-content>
-								<md-input-container>
-									<label>Nome</label>
-									<input ng-model="hero.name" ng-init="hero.name = 'Neto'" required>
-								</md-input-container>
-								<md-input-container>
-									<label>Apelido</label>
-									<input ng-model="hero.alias" ng-init="hero.alias = 'Rick'" required>
-								</md-input-container>
-							</md-card-content>
-							<md-card-actions>
-								<md-button ng-click="createHero(hero)">ENTRAR</md-button>
-							</md-card-actions>
-						</md-card>
-					</form>
-				</div>
+		<!-- build:js vendor.js-->
+		<script src="bower_components/angular/angular.js"></script>
+		<script src="bower_components/angular-animate/angular-animate.js"></script>
+		<script src="bower_components/angular-aria/angular-aria.js"></script>
+		<script src="bower_components/angular-messages/angular-messages.js"></script>
+		<script src="bower_components/angular-material/angular-material.js"></script>
+		<script src="bower_components/json-formatter/dist/json-formatter.js" type="text/javascript" ></script>
+		<script src="bower_components/angular-websocket/dist/angular-websocket.js"></script>
+		<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+		<!-- endbuild -->
 
-				<div flex layout="column" ng-if="atual && atual !== 'zombies'">
-					<md-toolbar><div class="md-toolbar-tools">
-							{{heroes[atual].alias}}
-							({{heroes[atual].actions}})
-						</div></md-toolbar>
-					<div layout="row">
-						<md-button 
-							flex class="md-raised md-primary" 
-							ng-click="btnAction('search')"
-							ng-disabled="mapa.zona[heroes[atual].pos].type !== 'indoor'">
-							<md-tooltip>Pesquisar</md-tooltip>
-							<md-icon>search</md-icon>
-						</md-button>
-						<md-button  
-							flex
-							class="md-button-icon"
-							ng-click="btnAction('top')"
-							ng-disabled="!btnMoveEnabled('top')">
-							<md-tooltip>{{btnMoveTooltip('top')}}</md-tooltip>
-							<md-icon>{{btnMoveAction('top')}}</md-icon>
-						</md-button>
-						<md-button flex class="md-raised md-warn">
-							<md-tooltip>Passar a Vez</md-tooltip>
-							<md-icon>pan_tool</md-icon>
-						</md-button>
-					</div>
-					<div layout="row">
-						<md-button 
-							ng-click="btnAction('left')"
-							ng-disabled="!btnMoveEnabled('left')"
-							class="md-button-icon" flex>
-							<md-tooltip>{{btnMoveTooltip('left')}}</md-tooltip>
-							<md-icon>{{btnMoveAction('left')}}</md-icon>
-						</md-button>
-
-						<md-button 
-							ng-click="btnAction('right')"
-							ng-disabled="!btnMoveEnabled('right')"
-							class="md-button-icon" flex >
-							<md-tooltip>{{btnMoveTooltip('right')}}</md-tooltip>
-							<md-icon>{{btnMoveAction('right')}}</md-icon>
-						</md-button>
-					</div>
-					<div layout="row">
-						<md-button 
-							ng-disabled="true"
-							class="md-button-icon" flex>
-						</md-button>
-						<md-button
-							ng-click="btnAction('bottom')"
-							ng-disabled="!btnMoveEnabled('bottom')"
-							class="md-button-icon" flex>
-							<md-tooltip>{{btnMoveTooltip('bottom')}}</md-tooltip>
-							<md-icon>{{btnMoveAction('bottom')}}</md-icon>
-						</md-button>
-						<md-button 
-							ng-disabled="!btnMoveEnabled('bottom')"
-							class="md-button-icon md-warn" flex>
-							<md-tooltip>ATACAAARRRR!!!</md-tooltip>
-							<md-icon>location_searching</md-icon>
-						</md-button>
-					</div>
-				</div>
-			</div>
-			<div layout="row">
-				<div flex>
-					<ul>
-						<li> 
-							Zombies
-							<span style="color:red" ng-show="'zombies' === atual">ATUAL</span>
-						</li>
-						<li ng-repeat="hero in aHeroes">
-							{{hero.name}}
-							<span style="color:red" ng-show="hero.id === atual">ATUAL</span>
-						</li>
-					</ul>
-				</div>
-				<div flex style="font-size: 30px" ng-show="diceShow">
-					<md-card style="width: 100px;text-align: center;">
-						<md-card-content>
-							{{dice}}
-						</md-card-content>
-					</md-card>
-				</div>
-				<div flex>
-					<json-formatter json="aTurn"></json-formatter>
-					<hr />
-					<json-formatter json="mapa"></json-formatter>
-				</div>
-				<div flex>
-					<json-formatter json="aHeroes"></json-formatter>
-					<hr />
-					<json-formatter json="aZombies"></json-formatter>
-				</div>
-			</div>
-		</div>
+		<!-- build:js app.js -->
+		<script src="app/app.js"></script>
+		<script src="app/services/HomeService.js"></script>
+		<script src="app/services/GameService.js"></script>
+		<!--<script src="app/controllers/HomeController.js"></script>-->
+		<script src="app/directives/tmplHomeDirective.js"></script>
+		<script src="app/directives/tmplMapDirective.js"></script>
+		<script src="app/directives/tmplActionDirective.js"></script>
+		<script src="app/directives/tmplLogDirective.js"></script>
+		<!-- endbuild -->
 	</body>
-
 </html>

@@ -1,0 +1,150 @@
+
+<md-card flex>
+	<md-card-header>
+		<md-card-avatar>
+            <img class="md-user-avatar" src="/assets/images/hero0.png"/>
+		</md-card-avatar>
+		<md-card-header-text>
+            <span class="md-title">{{vm.me.alias}}</span>
+            <span class="md-subhead">{{vm.me.name}}</span>
+		</md-card-header-text>
+	</md-card-header>	
+</md-card>
+
+<div style="background-color: #FFF" layout="row">
+	<div flex style="text-align: center">3</div>
+	<div flex style="text-align: center">3</div>
+	<div flex style="text-align: center">10</div>
+</div>
+
+<md-card flex>
+	<md-card-content flex layout="column">
+		<div layout="row">
+			<md-button 
+				flex class="md-raised md-primary" 
+				ng-click="btnAction('search')"
+				ng-disabled="vm.myMap.zone[heroes[current].pos].type !== 'indoor'">
+				<md-tooltip>Pesquisar</md-tooltip>
+				<md-icon>search</md-icon>
+			</md-button>
+			<md-button  
+				flex
+				class="md-button-icon"
+				ng-click="btnAction('top')"
+				ng-disabled="!btnMoveEnabled('top')">
+				<md-tooltip>{{btnMoveTooltip('top')}}</md-tooltip>
+				<md-icon>{{btnMoveAction('top')}}</md-icon>
+			</md-button>
+			<md-button flex class="md-raised md-warn">
+				<md-tooltip>Passar a Vez</md-tooltip>
+				<md-icon>pan_tool</md-icon>
+			</md-button>
+		</div>
+		<div layout="row">
+			<md-button 
+				ng-click="btnAction('left')"
+				ng-disabled="!btnMoveEnabled('left')"
+				class="md-button-icon" flex>
+				<md-tooltip>{{btnMoveTooltip('left')}}</md-tooltip>
+				<md-icon>{{btnMoveAction('left')}}</md-icon>
+			</md-button>
+
+			<md-button 
+				ng-click="btnAction('right')"
+				ng-disabled="!btnMoveEnabled('right')"
+				class="md-button-icon" flex >
+				<md-tooltip>{{btnMoveTooltip('right')}}</md-tooltip>
+				<md-icon>{{btnMoveAction('right')}}</md-icon>
+			</md-button>
+		</div>
+		<div layout="row">
+			<md-button 
+				ng-disabled="true"
+				class="md-button-icon" flex>
+			</md-button>
+			<md-button
+				ng-click="btnAction('bottom')"
+				ng-disabled="!btnMoveEnabled('bottom')"
+				class="md-button-icon" flex>
+				<md-tooltip>{{btnMoveTooltip('bottom')}}</md-tooltip>
+				<md-icon>{{btnMoveAction('bottom')}}</md-icon>
+			</md-button>
+			<md-button 
+				ng-click="btnAttack()"
+				ng-disabled="!vm.myMap.zone[heroes[current].pos].items.enemies || vm.myMap.zone[heroes[current].pos].items.enemies.length === 0"
+				class="md-button-icon md-warn" flex>
+				<md-tooltip>ATACAAARRRR!!!</md-tooltip>
+				<md-icon>location_searching</md-icon>
+			</md-button>
+		</div>
+	</md-card-content>
+</md-card>
+
+<div flex layout="column" ng-if="current && meHero">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			{{heroes[current].alias}}<hr />
+			<span style="font-size: 10px">
+				(Actions: {{heroes[current].actions}} | Hits: {{heroes[current].hit}})
+			</span>
+		</div>
+	</md-toolbar>
+	<div layout="row">
+		<md-button 
+			flex class="md-raised md-primary" 
+			ng-click="btnAction('search')"
+			ng-disabled="vm.myMap.zone[heroes[current].pos].type !== 'indoor'">
+			<md-tooltip>Pesquisar</md-tooltip>
+			<md-icon>search</md-icon>
+		</md-button>
+		<md-button  
+			flex
+			class="md-button-icon"
+			ng-click="btnAction('top')"
+			ng-disabled="!btnMoveEnabled('top')">
+			<md-tooltip>{{btnMoveTooltip('top')}}</md-tooltip>
+			<md-icon>{{btnMoveAction('top')}}</md-icon>
+		</md-button>
+		<md-button flex class="md-raised md-warn">
+			<md-tooltip>Passar a Vez</md-tooltip>
+			<md-icon>pan_tool</md-icon>
+		</md-button>
+	</div>
+	<div layout="row">
+		<md-button 
+			ng-click="btnAction('left')"
+			ng-disabled="!btnMoveEnabled('left')"
+			class="md-button-icon" flex>
+			<md-tooltip>{{btnMoveTooltip('left')}}</md-tooltip>
+			<md-icon>{{btnMoveAction('left')}}</md-icon>
+		</md-button>
+
+		<md-button 
+			ng-click="btnAction('right')"
+			ng-disabled="!btnMoveEnabled('right')"
+			class="md-button-icon" flex >
+			<md-tooltip>{{btnMoveTooltip('right')}}</md-tooltip>
+			<md-icon>{{btnMoveAction('right')}}</md-icon>
+		</md-button>
+	</div>
+	<div layout="row">
+		<md-button 
+			ng-disabled="true"
+			class="md-button-icon" flex>
+		</md-button>
+		<md-button
+			ng-click="btnAction('bottom')"
+			ng-disabled="!btnMoveEnabled('bottom')"
+			class="md-button-icon" flex>
+			<md-tooltip>{{btnMoveTooltip('bottom')}}</md-tooltip>
+			<md-icon>{{btnMoveAction('bottom')}}</md-icon>
+		</md-button>
+		<md-button 
+			ng-click="btnAttack()"
+			ng-disabled="!vm.map.zone[heroes[current].pos].items.enemies || vm.map.zone[vm.game.current.pos].items.enemies.length === 0"
+			class="md-button-icon md-warn" flex>
+			<md-tooltip>ATACAAARRRR!!!</md-tooltip>
+			<md-icon>location_searching</md-icon>
+		</md-button>
+	</div>
+</div>

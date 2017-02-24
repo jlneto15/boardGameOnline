@@ -1,0 +1,90 @@
+<div style="width: 100%; height: 100%;"  layout="column">
+	<div ng-class="vm.home.socket.status === 'CONNECTED' ? 'divStatusGreen' : 'divStatusRed'">
+		{{ vm.home.socket.status}}
+	</div>
+	<div flex layout="column" ng-if="!vm.home.game.loggedGame">
+		<div style="margin: auto" layout="column">
+			<md-button ng-show="!btnclick" class='md-raised' ng-click="btnclick = 'NEW'">Criar nova sala</md-button>
+			<md-button ng-show="!btnclick" class='md-raised md-primary' ng-click="btnclick = 'ENTER'">Entrar em uma sala</md-button>
+
+			<div ng-show="btnclick !== undefined" layout="row">
+				<md-card>
+					<md-card-content layout='column'>
+						<md-input-container>
+							<label>Nome</label>
+							<!--<input ng-model="vm.hero.name" ng-init="vm.hero.name = 'Neto'" required>-->
+							<input ng-model="vm.hero.name" required>
+						</md-input-container>
+						<md-input-container>
+							<label>Apelido</label>
+							<input ng-model="vm.hero.alias" required>
+						</md-input-container>
+					</md-card-content>
+				</md-card>
+				<md-card ng-show="btnclick === 'NEW'">
+					<md-card-content layout="column">
+						<md-select ng-model="vm.map_id" placeholder="Escolha o Mapa">
+							<md-option ng-value="map" ng-repeat="map in vm.home.game.welcome.maps" >{{map}}</md-option>
+						</md-select>
+						
+						<md-button flex class="md-raised md-primary" ng-click="vm.clickCreateGame()">
+							CRIAR SALA
+						</md-button>
+					</md-card-content>
+				</md-card>
+
+				<div ng-show="btnclick === 'ENTER'" class='gray' layout='row'>
+					<div>
+						<md-card>
+							<md-card-content layout='column'>
+								<md-input-container>
+									<label>Nome</label>
+									<!--<input ng-model="vm.hero.name" ng-init="vm.hero.name = 'Neto'" required>-->
+									<input ng-model="vm.hero.name" required>
+								</md-input-container>
+								<md-input-container>
+									<label>Apelido</label>
+									<input ng-model="vm.hero.alias" required>
+								</md-input-container>
+							</md-card-content>
+						</md-card>
+					</div>
+					<md-list class="md-padding">
+						<md-list-item 
+							ng-repeat="game in vm.home.game.welcome.games" 
+							ng-click="vm.clickEnterGame(game)" 
+							style="background-color: #FFF">
+							{{game}}
+						</md-list-item>
+					</md-list>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div flex layout="column" style="width: 100%; height: 100%;" ng-if="vm.home.game.loggedGame">
+
+		<div flex layout="row">
+			<div flex>
+				<tmpl-map></tmpl-map>
+			</div>
+			<div style="min-width: 200px">
+				<tmpl-action></tmpl-action>
+			</div>
+		</div>
+		<div flex layout="row">
+			<div flex class="showww">
+				<md-list>
+					<md-list-item 
+						ng-repeat="hero in vm.home.game.game.heroes"
+						ng-click="null"
+						>{{hero.name}} - {{hero.alias}}</md-list-item>
+				</md-list>
+			</div>
+			<div flex>
+				<tmpl-log></tmpl-log>
+				<json-formatter json="vm.home.game.game"></json-formatter>
+			</div>
+		</div>
+
+	</div>
+</div>

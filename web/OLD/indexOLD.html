@@ -1,0 +1,197 @@
+<!doctype html>
+<!-- estamos dizendo ‘quero usar angularjs’ -->
+<html ng-app="app">
+	<head>
+		<title>ZC</title>
+
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+		<!-- Angular Material Library -->
+		<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+		<script src="http://azimi.me/json-formatter/dist/json-formatter.min.js"></script>
+		<script src="https://cdn.rawgit.com/AngularClass/angular-websocket/v2.0.0/dist/angular-websocket.js"></script>
+
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+		<link rel="stylesheet" href="http://azimi.me/json-formatter/dist/json-formatter.min.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="app.css">
+
+		<script src="app.js"></script>
+	</head>
+	<body ng-controller="HomeController">
+		<div layout="column">
+			<div layout="row" flex >
+				<div style="border:1px solid #000;">
+					<table class="myMap">
+						<tr ng-repeat="col in myMap.table">
+							<td ng-repeat="zone in col"
+								class="{{myMap.zone[zone].type}} top-{{myMap.zone[zone].pos.top}} left-{{myMap.zone[zone].pos.left}} right-{{myMap.zone[zone].pos.right}} bottom-{{myMap.zone[zone].pos.bottom}} "
+								>
+								<div style="position: absolute;width: 100%;height: 100%;" layout="row" layout-wrap>
+									<div ng-show="myMap.zone[zone].showDice" class="showLoadingDiv">
+										<md-progress-circular class="showLoadingProgress" md-mode='indeterminate' md-diameter="60"></md-progress-circular>
+									</div>
+									{{myMap.zone[zone].id}}
+									<div ng-repeat="hero in myMap.zone[zone].items.heroes">
+										<span style="color: {{heroes[hero].color}}">
+											<md-tooltip>{{heroes[hero].name}}</md-tooltip>
+											H
+										</span>
+									</div>
+									<div ng-repeat="enemy in myMap.zone[zone].items.enemies">
+										<span style="color: blue">
+											E
+										</span>
+									</div>
+									<div ng-repeat="enemy in myMap.zone[zone].items.objects">
+										<span style="color: white;background-color: red">
+											X
+										</span>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<div flex layout="column" ng-show="!current">
+					<form name="frmCreateHero">
+						<md-card>
+							<md-card-content>
+								<md-input-container>
+									<label>Nome</label>
+									<input ng-model="hero.name" ng-init="hero.name = 'Neto'" required>
+								</md-input-container>
+								<md-input-container>
+									<label>Apelido</label>
+									<input ng-model="hero.alias" ng-init="hero.alias = 'Rick'" required>
+								</md-input-container>
+							</md-card-content>
+							<md-card-actions>
+								<md-button ng-click="createHero(hero)">ENTRAR</md-button>
+							</md-card-actions>
+						</md-card>
+					</form>
+				</div>
+				<div flex style="font-size: 30px" ng-show="diceShow">
+					<md-card style="width: 100px;text-align: center;">
+						<md-card-content>
+							{{dice}}
+						</md-card-content>
+					</md-card>
+				</div>
+				<div flex layout="column" ng-if="current && meHero">
+					<md-toolbar>
+						<div class="md-toolbar-tools">
+							{{heroes[current].alias}}<hr />
+							<span style="font-size: 10px">
+								(Actions: {{heroes[current].actions}} | Hits: {{heroes[current].hit}})
+							</span>
+						</div>
+					</md-toolbar>
+					<div layout="row">
+						<md-button 
+							flex class="md-raised md-primary" 
+							ng-click="btnAction('search')"
+							ng-disabled="myMap.zone[heroes[current].pos].type !== 'indoor'">
+							<md-tooltip>Pesquisar</md-tooltip>
+							<md-icon>search</md-icon>
+						</md-button>
+						<md-button  
+							flex
+							class="md-button-icon"
+							ng-click="btnAction('top')"
+							ng-disabled="!btnMoveEnabled('top')">
+							<md-tooltip>{{btnMoveTooltip('top')}}</md-tooltip>
+							<md-icon>{{btnMoveAction('top')}}</md-icon>
+						</md-button>
+						<md-button flex class="md-raised md-warn">
+							<md-tooltip>Passar a Vez</md-tooltip>
+							<md-icon>pan_tool</md-icon>
+						</md-button>
+					</div>
+					<div layout="row">
+						<md-button 
+							ng-click="btnAction('left')"
+							ng-disabled="!btnMoveEnabled('left')"
+							class="md-button-icon" flex>
+							<md-tooltip>{{btnMoveTooltip('left')}}</md-tooltip>
+							<md-icon>{{btnMoveAction('left')}}</md-icon>
+						</md-button>
+
+						<md-button 
+							ng-click="btnAction('right')"
+							ng-disabled="!btnMoveEnabled('right')"
+							class="md-button-icon" flex >
+							<md-tooltip>{{btnMoveTooltip('right')}}</md-tooltip>
+							<md-icon>{{btnMoveAction('right')}}</md-icon>
+						</md-button>
+					</div>
+					<div layout="row">
+						<md-button 
+							ng-disabled="true"
+							class="md-button-icon" flex>
+						</md-button>
+						<md-button
+							ng-click="btnAction('bottom')"
+							ng-disabled="!btnMoveEnabled('bottom')"
+							class="md-button-icon" flex>
+							<md-tooltip>{{btnMoveTooltip('bottom')}}</md-tooltip>
+							<md-icon>{{btnMoveAction('bottom')}}</md-icon>
+						</md-button>
+						<md-button 
+							ng-click="btnAttack()"
+							ng-disabled="!myMap.zone[heroes[current].pos].items.enemies || myMap.zone[heroes[current].pos].items.enemies.length === 0"
+							class="md-button-icon md-warn" flex>
+							<md-tooltip>ATACAAARRRR!!!</md-tooltip>
+							<md-icon>location_searching</md-icon>
+						</md-button>
+					</div>
+					<json-formatter json="heroes[hero]"></json-formatter>
+				</div>
+			</div>
+			<div layout="row">
+				<div flex="40">
+					<table class="lvlTable">
+						<tr ng-repeat="log in logGame">
+							<td>{{log.data}}</td>
+							<td>{{log.text}}</td>
+						</tr>
+					</table>
+				</div>
+				<div flex>
+					<ul>
+						<li> 
+							Enemies
+							<span style="color:red" ng-show="'enemies' === current">ATUAL</span>
+						</li>
+						<li ng-repeat="hero in aHeroes">
+							{{hero.name}}
+							<span style="color:red" ng-show="hero.id === current">ATUAL</span>
+						</li>
+					</ul>
+				</div>
+				<div flex>
+					<json-formatter json="aTurn"></json-formatter>
+					<hr />
+					<json-formatter json="myMap"></json-formatter>
+					<hr />
+					AQUI Ó
+					<hr />
+					<ul ng-repeat="data in collection track by $index" >
+						<li> {{data}} </li>
+					</ul>
+				</div>
+				<div flex>
+					<json-formatter json="aHeroes"></json-formatter>
+					<hr />
+					<json-formatter json="aEnemies"></json-formatter>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>

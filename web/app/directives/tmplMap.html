@@ -1,0 +1,37 @@
+<div>
+	<table class="myMap">
+		<tr ng-repeat="col in vm.game.mapTable">
+			<td ng-repeat="zone in col"
+				class="{{vm.map.zone[zone].type}} 
+				top-{{vm.map.zone[zone].pos.top}} 
+				left-{{vm.map.zone[zone].pos.left}} 
+				right-{{vm.map.zone[zone].pos.right}} 
+				bottom-{{vm.map.zone[zone].pos.bottom}} "
+				>
+				<div style="position: absolute;width: 100%;height: 100%;" layout="row" layout-wrap>
+					<div ng-show="vm.map.zone[zone].showDice" class="showLoadingDiv">
+						<md-progress-circular class="showLoadingProgress" md-mode='indeterminate' md-diameter="60"></md-progress-circular>
+					</div>
+					{{vm.map.zone[zone].id}}
+					
+									<div ng-repeat="hero in vm.map.zone[zone].items.heroes">
+										<span style="color: {{heroes[hero].color}}">
+											<md-tooltip>{{heroes[hero].name}}</md-tooltip>
+											H	
+										</span>
+									</div>
+						<!--			<div ng-repeat="enemy in myMap.zone[zone].items.enemies">
+										<span style="color: blue">
+											E
+										</span>
+									</div>
+									<div ng-repeat="enemy in myMap.zone[zone].items.objects">
+										<span style="color: white;background-color: red">
+											X
+										</span>
+									</div>-->
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>

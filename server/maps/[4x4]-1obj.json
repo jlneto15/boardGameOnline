@@ -1,5 +1,7 @@
 {
-	"zona": {
+	"spawhero": "2_1",
+	"spawenemies": ["4_3","4_4"],
+	"zone": {
 		"1_1": {
 			"id": "1_1",
 			"type": "indoor",
@@ -52,7 +54,7 @@
 				"top": "1_1-bottom",
 				"right": "open",
 				"bottom": "3_1-top",
-				"left": "blocked"
+				"left": "spawhero"
 			},
 			"items": {}
 		},
@@ -159,7 +161,7 @@
 		},
 		"4_3": {
 			"id": "4_3",
-			"type": "spawzombies",
+			"type": "spawenemies",
 			"pos": {
 				"top": "3_3-bottom",
 				"right": "open",
@@ -170,7 +172,7 @@
 		},
 		"4_4": {
 			"id": "4_4",
-			"type": "spawzombies",
+			"type": "spawenemies",
 			"pos": {
 				"top": "3_4-bottom",
 				"right": "blocked",

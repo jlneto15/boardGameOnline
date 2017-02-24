@@ -1,0 +1,80 @@
+* {
+	font-size: 14pt;
+}
+
+div {
+	/*border: 1px solid #000;*/
+}
+
+.gray {
+	background-color: #DDD;
+}
+
+.divStatusGreen {
+	border: 1px solid #0F0;
+	text-align: center;
+	background-color: #DFD;
+	color: #0F0;
+}
+
+.divStatusRed {
+	border: 1px solid #F00;
+	text-align: center;
+	background-color: #FDD;
+	color: #F00;
+}
+
+.myMap {
+	border-spacing: 0px;
+	border-collapse: collapse;
+	margin: auto;
+}
+.myMap td {
+	width: 70px;
+	height: 70px;
+	
+	border: 1px solid #000;
+	border-style: dashed;
+	vertical-align: top;
+	
+    position: relative;
+}
+
+.myMap .top-, .myMap .bottom-, .myMap .left-, .myMap .right- {}
+
+.myMap .street { background-color: #EEE; }
+.myMap .spawhero { background-color: #CCF; }
+.myMap .spawzombies { background-color: #FCC; }
+
+.myMap .top-blocked { border-top: 3px solid #000; }
+.myMap .bottom-blocked { border-bottom: 3px solid #000; }
+.myMap .myMap .left-blocked { border-left: 3px solid #000; }
+.right-blocked { border-right: 3px solid #000; }
+
+.myMap .top-exit { border-top: 3px solid #FF0; }
+.myMap .bottom-exit { border-bottom: 3px solid #FF0; }
+.myMap .left-exit { border-left: 3px solid #FF0; }
+.myMap .right-exit { border-right: 3px solid #FF0; }
+
+.myMap .top-spawhero { border-top: 3px solid #00F; }
+.myMap .bottom-spawhero { border-bottom: 3px solid #00F; }
+.myMap .left-spawhero { border-left: 3px solid #00F; }
+.myMap .right-spawhero { border-right: 3px solid #00F; }
+
+.myMap .top-doorclosed { border-top: 3px solid #F00; }
+.myMap .bottom-doorclosed { border-bottom: 3px solid #F00; }
+.myMap .left-doorclosed { border-left: 3px solid #F00; }
+.myMap .right-doorclosed { border-right: 3px solid #F00; }
+
+.myMap .top-dooropen { border-top: 1px solid #0F0; }
+.myMap .bottom-dooropen { border-bottom: 1px solid #0F0; }
+.myMap .left-dooropen { border-left: 1px solid #0F0; }
+.myMap .right-dooropen { border-right: 1px solid #0F0; }
+
+
+
+
+
+
+
+
